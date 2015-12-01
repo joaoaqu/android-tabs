@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">TabApp</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="carregando">Carregando...</string>
+    <string name="falha_carregar">Ocorreu um erro ao carregar dados.</string>
 
     <string name="tabNews">Notícias</string>
     <string name="tabList">Lista</string>

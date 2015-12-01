@@ -14,7 +14,8 @@ import java.util.ArrayList;
 
 import br.com.rbarrelo.tabapp.fragments.FormFragment;
 import br.com.rbarrelo.tabapp.fragments.ListaFragment;
-import br.com.rbarrelo.tabapp.fragments.NewsFragment;
+import br.com.rbarrelo.tabapp.fragments.local.LocalLista;
+import br.com.rbarrelo.tabapp.fragments.news.NewsLista;
 import br.com.rbarrelo.tabapp.util.Commom;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,11 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
@@ -60,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
             switch (position){
                 case 0:
-                    return NewsFragment.newInstance("A" + position, "B" + position);
+                    return NewsLista.newInstance();
                 case 1:
-                    return ListaFragment.newInstance(10);
+                    return LocalLista.newInstance();
                 default: //case 2:
                     return FormFragment.newInstance("A" + position, "B" + position);
             }
