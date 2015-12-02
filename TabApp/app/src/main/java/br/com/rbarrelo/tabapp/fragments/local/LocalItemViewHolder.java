@@ -19,7 +19,7 @@ public class LocalItemViewHolder extends RecyclerView.ViewHolder {
     }
 
     public static LocalItemViewHolder newInstance(View parent) {
-        TextView itemTextView = (TextView) parent.findViewById(R.id.itemTextView);
+        TextView itemTextView = (TextView) parent.findViewById(R.id.local_title);
         return new LocalItemViewHolder(parent, itemTextView);
     }
 

@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import com.pkmmte.pkrss.Article;
+
 import java.util.ArrayList;
 
 import br.com.rbarrelo.tabapp.fragments.FormFragment;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
     private ViewPager mViewPager;
+    private ArrayList<Article> articleArrayList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            articleArrayList = bundle.getParcelableArrayList(NewsLista.ARG_LISTA);
+        }
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         mViewPager = (ViewPager) findViewById(R.id.container);
@@ -57,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (position){
                 case 0:
-                    return NewsLista.newInstance();
+                    return NewsLista.newInstance(articleArrayList);
                 case 1:
                     return LocalLista.newInstance();
                 default: //case 2:

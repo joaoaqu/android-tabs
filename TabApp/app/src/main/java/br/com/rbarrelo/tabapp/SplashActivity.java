@@ -1,97 +1,75 @@
 package br.com.rbarrelo.tabapp;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.MotionEvent;
-import android.view.View;
+import android.widget.FrameLayout;
 
+import com.pkmmte.pkrss.Article;
+import com.pkmmte.pkrss.Callback;
+import com.pkmmte.pkrss.PkRSS;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- */
+import br.com.rbarrelo.tabapp.fragments.news.NewsLista;
+import br.com.rbarrelo.tabapp.util.Commom;
+
 public class SplashActivity extends AppCompatActivity {
 
-    private static final int UI_ANIMATION_DELAY = 0;
-    private final Handler mHideHandler = new Handler();
-    private View mContentView;
-    private final Runnable mHidePart2Runnable = new Runnable() {
-        @SuppressLint("InlinedApi")
-        @Override
-        public void run() {
-            // Delayed removal of status and navigation bar
-
-            // Note that some of these constants are new as of API 16 (Jelly Bean)
-            // and API 19 (KitKat). It is safe to use them, as they are inlined
-            // at compile-time and do nothing on earlier devices.
-            mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
-        }
-    };
-
-    private final Runnable mHideRunnable = new Runnable() {
-        @Override
-        public void run() {
-            hide();
-        }
-    };
+    FrameLayout frameLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
+        frameLayout = (FrameLayout) findViewById(R.id.splash_frame);
 
-        mContentView = findViewById(R.id.fullscreen_content);
+        this.hideActionBar();
 
-
-        new Timer().schedule(new TimerTask() {
-
-            @Override
-            public void run() {
-                finish();
-
-                Intent intent = new Intent();
-                intent.setClass(SplashActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        }, 6000);
-
+        this.loadNews();
     }
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-        // Trigger the initial hide() shortly after the activity has been
-        // created, to briefly hint to the user that UI controls
-        // are available.
-        delayedHide(0);
-    }
-
-    private void hide() {
-        // Hide UI first
+    private void hideActionBar(){
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.hide();
         }
-
-        // Schedule a runnable to remove the status and navigation bar after a delay
-        mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
     }
 
-    private void delayedHide(int delayMillis) {
-        mHideHandler.removeCallbacks(mHideRunnable);
-        mHideHandler.postDelayed(mHideRunnable, delayMillis);
+    private void loadNews(){
+        PkRSS.with(this).load(Commom.URL_NEWS).callback(new Callback() {
+            @Override
+            public void OnPreLoad() {
+                Snackbar.make(frameLayout, R.string.carregando, Snackbar.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void OnLoaded(final List<Article> articleList) {
+                new Timer().schedule(new TimerTask() {
+
+                    @Override
+                    public void run() {
+                        finish();
+
+                        Intent intent = new Intent();
+                        intent.putParcelableArrayListExtra(NewsLista.ARG_LISTA, (ArrayList<? extends Parcelable>) articleList);
+                        intent.setClass(SplashActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                }, 1000 * Commom.SPLASH_SEG);
+            }
+
+            @Override
+            public void OnLoadFailed() {
+                Snackbar.make(frameLayout, R.string.falha_carregar, Snackbar.LENGTH_LONG).show();
+            }
+        }).async();
     }
 }

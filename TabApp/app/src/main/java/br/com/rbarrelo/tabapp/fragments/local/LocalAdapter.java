@@ -26,12 +26,12 @@ public class LocalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.local_item, parent, false);
-        return NewsItemViewHolder.newInstance(view);
+        return LocalItemViewHolder.newInstance(view);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        NewsItemViewHolder holder = (NewsItemViewHolder) viewHolder;
+        LocalItemViewHolder holder = (LocalItemViewHolder) viewHolder;
         String itemText = mItemList.get(position);
         holder.setItemText(itemText);
     }

@@ -2,10 +2,15 @@ package br.com.rbarrelo.tabapp.fragments.news;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.pkmmte.pkrss.Article;
+
 import br.com.rbarrelo.tabapp.R;
+import br.com.rbarrelo.tabapp.util.Commom;
 
 import java.util.List;
 
@@ -14,10 +19,10 @@ import java.util.List;
  */
 public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<String> mItemList;
+    private List<Article> articleList;
 
-    public NewsAdapter(List<String> itemList) {
-        mItemList = itemList;
+    public NewsAdapter(List<Article> itemList) {
+        articleList = itemList;
     }
 
     @Override
@@ -30,13 +35,18 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         NewsItemViewHolder holder = (NewsItemViewHolder) viewHolder;
-        String itemText = mItemList.get(position);
-        holder.setItemText(itemText);
+
+        Article article = articleList.get(position);
+        holder.setTitle(article.getTitle());
+        holder.setDetalhe(article.getDescription());
+        holder.setImageView(article.getImage().toString());
+        holder.setClick(article.getSource());
+        Log.i(Commom.TAG, "Image URI: " +  article.getImage());
     }
 
     @Override
     public int getItemCount() {
-        return mItemList == null ? 0 : mItemList.size();
+        return articleList == null ? 0 : articleList.size();
     }
 
 }

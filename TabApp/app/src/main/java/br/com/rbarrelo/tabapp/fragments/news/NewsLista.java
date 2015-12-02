@@ -1,5 +1,6 @@
 package br.com.rbarrelo.tabapp.fragments.news;
 
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 
@@ -21,13 +22,31 @@ import de.greenrobot.event.EventBus;
  */
 public class NewsLista extends ListaFragment {
 
-    public static NewsLista newInstance() {
+    public static final String ARG_LISTA = "lista";
+
+    public static NewsLista newInstance(ArrayList<Article> articleList) {
         NewsLista newsLista = new NewsLista();
+        Bundle args = new Bundle();
+        args.putParcelableArrayList(ARG_LISTA, articleList);
+        newsLista.setArguments(args);
         return newsLista;
     }
 
     @Override
     protected void setupRecyclerView() {
+        if (getArguments() != null) {
+            ArrayList<Article> articleArrayList = getArguments().getParcelableArrayList(ARG_LISTA);
+
+            if (articleArrayList != null){
+                NewsEvent newsEvent = new NewsEvent(articleArrayList);
+                EventBus.getDefault().post(newsEvent);
+            }else{
+                reloadArticles();
+            }
+        }
+    }
+
+    private void reloadArticles(){
         PkRSS.with(getActivity()).load(Commom.URL_NEWS).callback(new Callback() {
             @Override
             public void OnPreLoad() {
@@ -49,16 +68,7 @@ public class NewsLista extends ListaFragment {
 
     public void onEventMainThread(final NewsEvent event) {
         Log.i(Commom.TAG, "[NewsLista] onEventMainThread");
-        NewsAdapter newsAdapter = new NewsAdapter(createArticleList(event.getArticleList()));
+        NewsAdapter newsAdapter = new NewsAdapter(event.getArticleList());
         recyclerView.setAdapter(newsAdapter);
     }
-
-    private List<String> createArticleList(List<Article> articleList) {
-        List<String> itemList = new ArrayList<>();
-        for (Article article : articleList) {
-            itemList.add(article.getTitle());
-        }
-        return itemList;
-    }
-
 }

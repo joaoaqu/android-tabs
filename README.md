@@ -16,6 +16,8 @@ Construir um app android no Android Studio com os recursos listados abaixo.
 ##### De terceiros
 * [EventBus] - de.greenrobot:eventbus:2.4.0
 * [PkRSS] - com.pkmmte.pkrss:pkrss:1.1.2
+* [Picasso] - com.squareup.picasso:picasso:2.5.2
+
 
 
 ---
@@ -26,4 +28,5 @@ Construir um app android no Android Studio com os recursos listados abaixo.
 [CardView]:http://developer.android.com/intl/pt-br/training/material/lists-cards.html
 [EventBus]:https://github.com/greenrobot/EventBus
 [PkRSS]:https://github.com/Pkmmte/PkRSS
+[Picasso]:http://square.github.io/picasso
 

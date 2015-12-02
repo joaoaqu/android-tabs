@@ -6,5 +6,6 @@ package br.com.rbarrelo.tabapp.util;
 public class Commom {
 
     public static final String TAG  = "LOG";
-    public static final String URL_NEWS = "http://carroonline.terra.com.br/rss";
+    public static final String URL_NEWS = "http://g1.globo.com/dynamo/carros/rss2.xml";
+    public static final int SPLASH_SEG = 2;
 }
