@@ -14,7 +14,7 @@ import com.pkmmte.pkrss.Article;
 
 import java.util.ArrayList;
 
-import br.com.rbarrelo.tabapp.fragments.FormFragment;
+import br.com.rbarrelo.tabapp.fragments.form.FormFragment;
 import br.com.rbarrelo.tabapp.fragments.local.LocalLista;
 import br.com.rbarrelo.tabapp.fragments.news.NewsLista;
 import br.com.rbarrelo.tabapp.util.Commom;

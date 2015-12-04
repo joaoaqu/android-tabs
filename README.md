@@ -17,7 +17,7 @@ Construir um app android no Android Studio com os recursos listados abaixo.
 * [EventBus] - de.greenrobot:eventbus:2.4.0
 * [PkRSS] - com.pkmmte.pkrss:pkrss:1.1.2
 * [Picasso] - com.squareup.picasso:picasso:2.5.2
-
+* [Lobsterpicker] - com.larswerkman:lobsterpicker:1.0.0
 
 
 ---
@@ -29,4 +29,4 @@ Construir um app android no Android Studio com os recursos listados abaixo.
 [EventBus]:https://github.com/greenrobot/EventBus
 [PkRSS]:https://github.com/Pkmmte/PkRSS
 [Picasso]:http://square.github.io/picasso
-
+[Lobsterpicker]:https://github.com/LarsWerkman/Lobsterpicker

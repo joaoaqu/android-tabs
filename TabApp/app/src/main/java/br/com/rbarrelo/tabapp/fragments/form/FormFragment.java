@@ -1,12 +1,19 @@
-package br.com.rbarrelo.tabapp.fragments;
+package br.com.rbarrelo.tabapp.fragments.form;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.TextViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import br.com.rbarrelo.tabapp.R;
 
@@ -24,6 +31,9 @@ public class FormFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    private int corDefault;
+    private TextView tvLabelCadastro;
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -32,6 +42,24 @@ public class FormFragment extends Fragment {
 
     public FormFragment() {
         // Required empty public constructor
+    }
+
+
+    public void turnOffDialogFragment(int color){
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ColorDialogFragment colorDialogFragment = (
+                ColorDialogFragment) getActivity().getSupportFragmentManager().findFragmentByTag("colorDialog");
+        if(colorDialogFragment != null){
+            colorDialogFragment.dismiss();
+            ft.remove(colorDialogFragment);
+
+            usaCorSelecionada(color);
+        }
+    }
+
+    private  void usaCorSelecionada(int color){
+        this.corDefault = color;
+        this.tvLabelCadastro.setTextColor(color);
     }
 
     /**
@@ -64,9 +92,30 @@ public class FormFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_form, container, false);
+
+
+        View view = inflater.inflate(R.layout.fragment_form, container, false);
+        tvLabelCadastro = (TextView) view.findViewById(R.id.label_cadastro);
+        Button openColor = (Button) view.findViewById(R.id.btn_limpar);
+        openColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openColorDialog();
+            }
+        });
+
+        this.corDefault = getResources().getColor(R.color.color_primary_blue);
+
+
+        return view;
     }
+
+    private void openColorDialog(){
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ColorDialogFragment colorDialogFragment = new ColorDialogFragment(this, corDefault);
+        colorDialogFragment.show(ft, "colorDialog");
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
