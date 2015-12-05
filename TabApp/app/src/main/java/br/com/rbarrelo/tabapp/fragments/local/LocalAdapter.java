@@ -9,17 +9,19 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import br.com.rbarrelo.tabapp.R;
-import br.com.rbarrelo.tabapp.fragments.news.NewsItemViewHolder;
+import br.com.rbarrelo.tabapp.model.Veiculo;
 
 /**
  * Created by rafaelbarrelo on 11/30/15.
  */
 public class LocalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<String> mItemList;
+    private List<Veiculo> veiculoList;
 
-    public LocalAdapter(List<String> itemList) {
-        mItemList = itemList;
+    public LocalAdapter() { }
+
+    public void setVeiculoList(List<Veiculo> veiculoList) {
+        this.veiculoList = veiculoList;
     }
 
     @Override
@@ -32,12 +34,12 @@ public class LocalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         LocalItemViewHolder holder = (LocalItemViewHolder) viewHolder;
-        String itemText = mItemList.get(position);
+        String itemText = veiculoList.get(position).getPlaca();
         holder.setItemText(itemText);
     }
 
     @Override
     public int getItemCount() {
-        return mItemList == null ? 0 : mItemList.size();
+        return veiculoList == null ? 0 : veiculoList.size();
     }
 }

@@ -21,7 +21,9 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Article> articleList;
 
-    public NewsAdapter(List<Article> itemList) {
+    public NewsAdapter() {}
+
+    public void setArticleList(List<Article> itemList) {
         articleList = itemList;
     }
 

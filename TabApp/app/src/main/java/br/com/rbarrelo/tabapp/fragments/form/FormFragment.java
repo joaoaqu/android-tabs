@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import br.com.rbarrelo.tabapp.R;
+import br.com.rbarrelo.tabapp.model.Veiculo;
 import io.realm.Realm;
 
 public class FormFragment extends Fragment {
@@ -31,6 +32,18 @@ public class FormFragment extends Fragment {
     public static FormFragment newInstance() {
         FormFragment fragment = new FormFragment();
         return fragment;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        realm = Realm.getDefaultInstance();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        realm.close();
     }
 
     @Override
@@ -101,6 +114,22 @@ public class FormFragment extends Fragment {
     }
 
     private void salvar(){
+        if (isValid()){
+            Veiculo veiculo = new Veiculo();
+            veiculo.setPlaca(tvPlaca.getText().toString());
+            veiculo.setMarca(tvMarca.getText().toString());
+            veiculo.setModelo(tvModelo.getText().toString());
+            veiculo.setCor(corDefault);
 
+            realm.beginTransaction();
+            realm.copyToRealmOrUpdate(veiculo);
+            realm.commitTransaction();
+        }
+    }
+
+    public boolean isValid() {
+        return
+                tvPlaca.getText() != null &&
+                !tvPlaca.getText().toString().trim().equals("");
     }
 }

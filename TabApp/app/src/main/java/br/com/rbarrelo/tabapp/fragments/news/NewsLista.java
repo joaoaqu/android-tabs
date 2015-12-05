@@ -1,8 +1,12 @@
 package br.com.rbarrelo.tabapp.fragments.news;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.pkmmte.pkrss.Article;
 import com.pkmmte.pkrss.Callback;
@@ -23,6 +27,7 @@ import de.greenrobot.event.EventBus;
 public class NewsLista extends ListaFragment {
 
     public static final String ARG_LISTA = "lista";
+    private NewsAdapter newsAdapter;
 
     public static NewsLista newInstance(ArrayList<Article> articleList) {
         NewsLista newsLista = new NewsLista();
@@ -30,6 +35,15 @@ public class NewsLista extends ListaFragment {
         args.putParcelableArrayList(ARG_LISTA, articleList);
         newsLista.setArguments(args);
         return newsLista;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        newsAdapter = new NewsAdapter();
+        recyclerView.setAdapter(newsAdapter);
+
+        setupRecyclerView();
     }
 
     @Override
@@ -43,6 +57,8 @@ public class NewsLista extends ListaFragment {
             }else{
                 reloadArticles();
             }
+        }else{
+            reloadArticles();
         }
     }
 
@@ -68,7 +84,8 @@ public class NewsLista extends ListaFragment {
 
     public void onEventMainThread(final NewsEvent event) {
         Log.i(Commom.TAG, "[NewsLista] onEventMainThread");
-        NewsAdapter newsAdapter = new NewsAdapter(event.getArticleList());
-        recyclerView.setAdapter(newsAdapter);
+        newsAdapter.setArticleList(event.getArticleList());
+        newsAdapter.notifyDataSetChanged();
+        refreshFinished();
     }
 }
