@@ -2,16 +2,13 @@ package br.com.rbarrelo.tabapp.fragments.form;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.larswerkman.lobsterpicker.LobsterPicker;
-import com.larswerkman.lobsterpicker.OnColorListener;
 import com.larswerkman.lobsterpicker.sliders.LobsterShadeSlider;
 
 import br.com.rbarrelo.tabapp.R;

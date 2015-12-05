@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     return LocalLista.newInstance();
                 default: //case 2:
-                    return FormFragment.newInstance("A" + position, "B" + position);
+                    return FormFragment.newInstance();
             }
         }
 

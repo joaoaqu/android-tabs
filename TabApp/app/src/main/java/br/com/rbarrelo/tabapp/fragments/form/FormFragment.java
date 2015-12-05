@@ -1,49 +1,78 @@
 package br.com.rbarrelo.tabapp.fragments.form;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.TextViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import br.com.rbarrelo.tabapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link FormFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link FormFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class FormFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     private int corDefault;
-    private TextView tvLabelCadastro;
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private OnFragmentInteractionListener mListener;
+    private ImageButton openColorButton;
+    private TextView tvMarca;
+    private TextView tvModelo;
+    private TextView tvPlaca;
+    private Button btnSalvar;
+    private Button btnLimpar;
 
     public FormFragment() {
         // Required empty public constructor
     }
 
+    public static FormFragment newInstance() {
+        FormFragment fragment = new FormFragment();
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_form, container, false);
+        openColorButton = (ImageButton) view.findViewById(R.id.btn_cor);
+        openColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openColorDialog();
+            }
+        });
+
+        tvMarca = (TextView) view.findViewById(R.id.text_marca);
+        tvModelo = (TextView) view.findViewById(R.id.text_modelo);
+        tvPlaca = (TextView) view.findViewById(R.id.text_placa);
+
+        btnSalvar = (Button) view.findViewById(R.id.btn_salvar);
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                salvar();
+            }
+        });
+
+        btnLimpar = (Button) view.findViewById(R.id.btn_limpar);
+        btnLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                limpaTela();
+            }
+        });
+
+        this.usaCorSelecionada(getResources().getColor(R.color.color_primary_blue));
+        return view;
+    }
+
+    private void openColorDialog(){
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ColorDialogFragment colorDialogFragment = new ColorDialogFragment(this, corDefault);
+        colorDialogFragment.show(ft, "colorDialog");
+    }
 
     public void turnOffDialogFragment(int color){
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -59,100 +88,17 @@ public class FormFragment extends Fragment {
 
     private  void usaCorSelecionada(int color){
         this.corDefault = color;
-        this.tvLabelCadastro.setTextColor(color);
+        this.openColorButton.setBackgroundColor(color);
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FormFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FormFragment newInstance(String param1, String param2) {
-        FormFragment fragment = new FormFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    private void limpaTela(){
+        this.openColorButton.setBackgroundColor(getResources().getColor(R.color.color_primary_blue));
+        this.tvMarca.setText("");
+        this.tvModelo.setText("");
+        this.tvPlaca.setText("");
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private void salvar(){
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-
-        View view = inflater.inflate(R.layout.fragment_form, container, false);
-        tvLabelCadastro = (TextView) view.findViewById(R.id.label_cadastro);
-        Button openColor = (Button) view.findViewById(R.id.btn_limpar);
-        openColor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openColorDialog();
-            }
-        });
-
-        this.corDefault = getResources().getColor(R.color.color_primary_blue);
-
-
-        return view;
-    }
-
-    private void openColorDialog(){
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ColorDialogFragment colorDialogFragment = new ColorDialogFragment(this, corDefault);
-        colorDialogFragment.show(ft, "colorDialog");
-    }
-
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }
