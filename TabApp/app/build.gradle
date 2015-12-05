@@ -31,6 +31,6 @@ dependencies {
     compile 'com.pkmmte.pkrss:pkrss:1.1.2'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
-
     compile 'com.larswerkman:lobsterpicker:1.0.0'
+    compile 'io.realm:realm-android:0.86.0'
 }

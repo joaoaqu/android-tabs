@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import br.com.rbarrelo.tabapp.R;
+import io.realm.Realm;
 
 public class FormFragment extends Fragment {
 
@@ -21,6 +22,7 @@ public class FormFragment extends Fragment {
     private TextView tvPlaca;
     private Button btnSalvar;
     private Button btnLimpar;
+    private Realm realm;
 
     public FormFragment() {
         // Required empty public constructor

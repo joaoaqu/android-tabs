@@ -18,6 +18,7 @@ Construir um app android no Android Studio com os recursos listados abaixo.
 * [PkRSS] - com.pkmmte.pkrss:pkrss:1.1.2
 * [Picasso] - com.squareup.picasso:picasso:2.5.2
 * [Lobsterpicker] - com.larswerkman:lobsterpicker:1.0.0
+* [Realm] - io.realm:realm-android:0.86.0
 
 
 ---
@@ -30,3 +31,4 @@ Construir um app android no Android Studio com os recursos listados abaixo.
 [PkRSS]:https://github.com/Pkmmte/PkRSS
 [Picasso]:http://square.github.io/picasso
 [Lobsterpicker]:https://github.com/LarsWerkman/Lobsterpicker
+[Remal]:https://realm.io
