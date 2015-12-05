@@ -34,8 +34,10 @@ public class LocalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         LocalItemViewHolder holder = (LocalItemViewHolder) viewHolder;
-        String itemText = veiculoList.get(position).getPlaca();
-        holder.setItemText(itemText);
+
+        holder.setTitle(veiculoList.get(position).getPlaca());
+        holder.setSub(veiculoList.get(position).getModelo());
+        holder.setLateral(veiculoList.get(position).getCor());
     }
 
     @Override

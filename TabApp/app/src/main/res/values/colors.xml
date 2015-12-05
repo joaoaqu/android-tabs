@@ -8,6 +8,8 @@
     <color name="color_primary_blue_dark">#1976d2</color>
     <color name="color_accent_pink">#ff4081</color>
     <color name="color_shadow">#44000000</color>
+    <color name="color_cinza">#CCCCCC</color>
+    <color name="color_black">#000000</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>
