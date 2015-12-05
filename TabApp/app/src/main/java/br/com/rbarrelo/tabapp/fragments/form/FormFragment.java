@@ -87,7 +87,7 @@ public class FormFragment extends Fragment {
             }
         });
 
-        this.usaCorSelecionada(getResources().getColor(R.color.color_primary_blue));
+        this.limpaTela();
         return view;
     }
 
@@ -115,7 +115,7 @@ public class FormFragment extends Fragment {
     }
 
     private void limpaTela(){
-        this.openColorButton.setBackgroundColor(getResources().getColor(R.color.color_primary_blue));
+        this.usaCorSelecionada(getResources().getColor(R.color.color_black));
         this.tvMarca.setText("");
         this.tvModelo.setText("");
         this.tvPlaca.setText("");
