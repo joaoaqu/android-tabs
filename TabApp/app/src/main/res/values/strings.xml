@@ -4,12 +4,19 @@
     <string name="carregando">Carregando...</string>
     <string name="falha_carregar">Ocorreu um erro ao carregar dados.</string>
 
-    <string name="tabNews">Notícias</string>
-    <string name="tabList">Lista</string>
-    <string name="tabForm">Cadastro</string>
+    <string name="tab_news">Notícias</string>
+    <string name="tab_lista_local">Lista</string>
+    <string name="tab_form">Cadastro</string>
 
-    <string name="title_activity_splash">SplashActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="operacao_adicionado">adicionada</string>
+    <string name="operacao_atualizado">atualizada</string>
+    <string name="operacao_excluido">excluida</string>
+
+    <string name="atualiza_veiculo">Placa já cadastrada. Deseja atualizar os outros valores?</string>
+    <string name="exclui_veiculo">Deseja excluir o veículo?</string>
+    <string name="dialog_veiculo_sim">Sim</string>
+    <string name="dialog_veiculo_nao">Não</string>
+
 
 </resources>

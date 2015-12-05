@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
 
-            tabs.add(getResources().getString(R.string.tabNews));
-            tabs.add(getResources().getString(R.string.tabList));
-            tabs.add(getResources().getString(R.string.tabForm));
+            tabs.add(getResources().getString(R.string.tab_news));
+            tabs.add(getResources().getString(R.string.tab_lista_local));
+            tabs.add(getResources().getString(R.string.tab_form));
         }
 
         @Override

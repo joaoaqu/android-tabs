@@ -38,7 +38,7 @@ public class ColorDialogFragment extends DialogFragment {
         btCancel.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-               instancia.turnOffDialogFragment(defaultColor);
+               instancia.fechaDialogCor(defaultColor);
             }
         });
 
@@ -46,7 +46,7 @@ public class ColorDialogFragment extends DialogFragment {
         btEscolhe.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
-                instancia.turnOffDialogFragment(lobsterPicker.getColor());
+                instancia.fechaDialogCor(lobsterPicker.getColor());
             }
         });
 

@@ -51,7 +51,9 @@ public abstract class ListaFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
-        swipeRefreshLayout.setColorSchemeColors(R.color.color_primary_blue, R.color.color_accent_pink);
+        swipeRefreshLayout.setColorSchemeColors(R.color.color_primary_blue,
+                                                R.color.color_accent_pink,
+                                                R.color.color_primary_blue_dark);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

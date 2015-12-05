@@ -5,36 +5,30 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.rbarrelo.tabapp.eventbus.LocalEvent;
 import br.com.rbarrelo.tabapp.fragments.ListaFragment;
-import br.com.rbarrelo.tabapp.model.Veiculo;
+import br.com.rbarrelo.tabapp.model.VeiculoHelper;
 import br.com.rbarrelo.tabapp.util.Commom;
-import de.greenrobot.event.EventBus;
-import io.realm.Realm;
-import io.realm.RealmResults;
 
 /**
  * Created by rafaelbarrelo on 11/30/15.
  */
 public class LocalLista extends ListaFragment {
 
-    private Realm realm;
     private LocalAdapter localAdapter;
+    private VeiculoHelper helper;
 
     @Override
     public void onStart() {
         super.onStart();
-        realm = Realm.getDefaultInstance();
+        helper = new VeiculoHelper();
         setupRecyclerView();
         Log.i(Commom.TAG, "LocalLista onStart");
     }
 
     @Override
     public void onStop() {
-        realm.close();
+        helper.closeRealm();
         Log.i(Commom.TAG, "LocalLista onStop");
         super.onStop();
     }
@@ -54,24 +48,7 @@ public class LocalLista extends ListaFragment {
 
     @Override
     protected void setupRecyclerView() {
-
-        if (realm != null){
-            RealmResults<Veiculo> dados = realm.where(Veiculo.class).findAll();
-            dados.sort("placa");
-
-            if (dados != null && dados.size() > 0){
-                List<Veiculo> itemList = new ArrayList<>();
-                for (Veiculo veiculo : dados) {
-                    itemList.add(veiculo);
-                }
-
-                LocalEvent localEvent = new LocalEvent(itemList);
-                EventBus.getDefault().post(localEvent);
-            }
-        }else{
-            Log.i(Commom.TAG, "realm null");
-        }
-
+        helper.notificaAlteracao();
     }
 
     public void onEventMainThread(final LocalEvent event) {

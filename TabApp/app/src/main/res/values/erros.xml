@@ -1,0 +1,5 @@
+<resources>
+    <string name="erro_placa_vazia">Placa não pode ser vazio.</string>
+    <string name="erro_modelo_vazio">Modelo não pode ser vazio.</string>
+    <string name="erro_marca_vazia">Marca não pode ser vazio.</string>
+</resources>

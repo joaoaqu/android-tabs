@@ -16,27 +16,27 @@ public class Veiculo extends RealmObject {
     private int cor;
 
     public String getPlaca() {
-        return placa;
+        return placa.toUpperCase();
     }
 
     public void setPlaca(String placa) {
-        this.placa = placa;
+        this.placa = placa.toUpperCase();
     }
 
     public String getMarca() {
-        return marca;
+        return marca.toUpperCase();
     }
 
     public void setMarca(String marca) {
-        this.marca = marca;
+        this.marca = marca.toUpperCase();
     }
 
     public String getModelo() {
-        return modelo;
+        return modelo.toUpperCase();
     }
 
     public void setModelo(String modelo) {
-        this.modelo = modelo;
+        this.modelo = modelo.toUpperCase();
     }
 
     public int getCor() {

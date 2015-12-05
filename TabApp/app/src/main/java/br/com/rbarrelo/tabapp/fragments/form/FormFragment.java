@@ -1,8 +1,12 @@
 package br.com.rbarrelo.tabapp.fragments.form;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +16,8 @@ import android.widget.TextView;
 
 import br.com.rbarrelo.tabapp.R;
 import br.com.rbarrelo.tabapp.model.Veiculo;
-import io.realm.Realm;
+import br.com.rbarrelo.tabapp.model.VeiculoHelper;
+import br.com.rbarrelo.tabapp.util.Commom;
 
 public class FormFragment extends Fragment {
 
@@ -23,7 +28,8 @@ public class FormFragment extends Fragment {
     private TextView tvPlaca;
     private Button btnSalvar;
     private Button btnLimpar;
-    private Realm realm;
+    private TabLayout tabLayout;
+    private VeiculoHelper helper;
 
     public FormFragment() {
         // Required empty public constructor
@@ -37,18 +43,20 @@ public class FormFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        realm = Realm.getDefaultInstance();
+        helper = new VeiculoHelper();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        realm.close();
+        helper.closeRealm();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        tabLayout = (TabLayout) getActivity().findViewById(R.id.tabs);
 
         View view = inflater.inflate(R.layout.fragment_form, container, false);
         openColorButton = (ImageButton) view.findViewById(R.id.btn_cor);
@@ -89,7 +97,7 @@ public class FormFragment extends Fragment {
         colorDialogFragment.show(ft, "colorDialog");
     }
 
-    public void turnOffDialogFragment(int color){
+    public void fechaDialogCor(int color){
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ColorDialogFragment colorDialogFragment = (
                 ColorDialogFragment) getActivity().getSupportFragmentManager().findFragmentByTag("colorDialog");
@@ -121,15 +129,67 @@ public class FormFragment extends Fragment {
             veiculo.setModelo(tvModelo.getText().toString());
             veiculo.setCor(corDefault);
 
-            realm.beginTransaction();
-            realm.copyToRealmOrUpdate(veiculo);
-            realm.commitTransaction();
+            if (helper.existe(veiculo.getPlaca())){
+                atualiza(veiculo);
+            }else{
+                insereOuAtualiza(veiculo, getResources().getString(R.string.operacao_adicionado));
+            }
         }
     }
 
+    private void atualiza(final Veiculo veiculo) {
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        insereOuAtualiza(veiculo, getResources().getString(R.string.operacao_atualizado));
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setMessage(getResources().getString(R.string.atualiza_veiculo))
+                .setPositiveButton(getResources().getString(R.string.dialog_veiculo_sim), dialogClickListener)
+                .setNegativeButton(getResources().getString(R.string.dialog_veiculo_nao), dialogClickListener).show();
+    }
+
+    public void insereOuAtualiza(Veiculo veiculo, String operacao){
+        helper.insereOuAtualiza(veiculo)
+              .notificaAlteracao();
+
+        limpaTela();
+        TabLayout.Tab tab = tabLayout.getTabAt(Commom.TAB_LISTA_LOCAL);
+        tab.select();
+        Snackbar.make(getView(), veiculo.getPlaca() + " " + operacao + "!", Snackbar.LENGTH_SHORT).show();
+    }
+
     public boolean isValid() {
-        return
-                tvPlaca.getText() != null &&
-                !tvPlaca.getText().toString().trim().equals("");
+
+        if (tvPlaca.getText() == null || tvPlaca.getText().toString().trim().equals("")){
+            mostraSnackErro(getResources().getString(R.string.erro_placa_vazia));
+            return false;
+        }
+
+        if (tvModelo.getText() == null || tvModelo.getText().toString().trim().equals("")){
+            mostraSnackErro(getResources().getString(R.string.erro_modelo_vazio));
+            return false;
+        }
+
+        if (tvMarca.getText() == null || tvMarca.getText().toString().trim().equals("")){
+            mostraSnackErro(getResources().getString(R.string.erro_marca_vazia));
+            return false;
+        }
+
+        return true;
+
+    }
+
+    public void mostraSnackErro(String mensagem){
+        Snackbar.make(getView(), mensagem, Snackbar.LENGTH_LONG).show();
     }
 }
