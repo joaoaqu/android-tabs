@@ -53,9 +53,14 @@ public class LocalLista extends ListaFragment {
 
     public void onEventMainThread(final LocalEvent event) {
         Log.i(Commom.TAG, "[LocalEvent] onEventMainThread");
-        localAdapter.setVeiculoList(event.getVeiculos());
-        localAdapter.notifyDataSetChanged();
-        refreshFinished();
-    }
 
+        if (event.getVeiculos().size() > 0){
+            this.listaPreenchida();
+            localAdapter.setVeiculoList(event.getVeiculos());
+            localAdapter.notifyDataSetChanged();
+            refreshFinished();
+        }else{
+            this.listaVazia();
+        }
+    }
 }

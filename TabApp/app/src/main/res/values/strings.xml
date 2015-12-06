@@ -11,6 +11,7 @@
     <string name="label_salvar">Salvar</string>
     <string name="label_limpar">Limpar</string>
     <string name="label_placa">Placa</string>
+    <string name="label_lista_vazia">Não há itens na lista.</string>
 
     <string name="tab_news">Notícias</string>
     <string name="tab_lista_local">Lista</string>

@@ -64,9 +64,9 @@ public class VeiculoHelper {
 
     public VeiculoHelper notificaAlteracaoNaLista(){
         RealmResults<Veiculo> dados = this.realm.where(Veiculo.class).findAll();
-        dados.sort("placa");
 
-        if (dados != null && dados.size() > 0){
+        if (dados != null){
+            dados.sort("placa");
             List<Veiculo> itemList = new ArrayList<>();
             for (Veiculo veiculo : dados) {
                 itemList.add(veiculo);

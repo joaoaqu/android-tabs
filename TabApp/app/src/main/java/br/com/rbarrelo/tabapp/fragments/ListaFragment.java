@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import br.com.rbarrelo.tabapp.R;
 import de.greenrobot.event.EventBus;
@@ -21,7 +23,7 @@ public abstract class ListaFragment extends Fragment {
 
     protected RecyclerView recyclerView;
     protected SwipeRefreshLayout swipeRefreshLayout;
-
+    protected TextView vazio;
 
     @Override
     public void onAttach(Context context) {
@@ -47,6 +49,8 @@ public abstract class ListaFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        vazio = (TextView) view.findViewById(R.id.aviso_vazio);
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -68,4 +72,16 @@ public abstract class ListaFragment extends Fragment {
     }
 
     protected abstract void setupRecyclerView();
+
+    protected void listaVazia(){
+        vazio.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.GONE);
+        swipeRefreshLayout.setVisibility(View.GONE);
+    }
+
+    protected void listaPreenchida(){
+        vazio.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+        swipeRefreshLayout.setVisibility(View.VISIBLE);
+    }
 }

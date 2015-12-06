@@ -84,8 +84,14 @@ public class NewsLista extends ListaFragment {
 
     public void onEventMainThread(final NewsEvent event) {
         Log.i(Commom.TAG, "[NewsLista] onEventMainThread");
-        newsAdapter.setArticleList(event.getArticleList());
-        newsAdapter.notifyDataSetChanged();
-        refreshFinished();
+
+        if (event.getArticleList().size() > 0){
+            this.listaPreenchida();
+            newsAdapter.setArticleList(event.getArticleList());
+            newsAdapter.notifyDataSetChanged();
+            refreshFinished();
+        }else{
+            this.listaVazia();
+        }
     }
 }
