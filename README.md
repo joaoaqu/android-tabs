@@ -61,4 +61,4 @@ Dialog de confirmação de update
 [PkRSS]:https://github.com/Pkmmte/PkRSS
 [Picasso]:http://square.github.io/picasso
 [Lobsterpicker]:https://github.com/LarsWerkman/Lobsterpicker
-[Remal]:https://realm.io
+[Realm]:https://realm.io
