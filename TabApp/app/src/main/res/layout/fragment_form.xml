@@ -24,7 +24,7 @@
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal"
-                android:text="Cadastro de Veículo"
+                android:text="@string/label_cadastro"
                 style="@style/Base.TextAppearance.AppCompat.Large"
                 />
 
@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
-                    android:hint="Marca" />
+                    android:hint="@string/label_marca" />
             </android.support.design.widget.TextInputLayout>
 
             <!-- Modelo -->
@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
-                    android:hint="Modelo" />
+                    android:hint="@string/label_modelo" />
             </android.support.design.widget.TextInputLayout>
 
             <!-- Placa -->
@@ -64,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapWords"
-                    android:hint="Placa"/>
+                    android:hint="@string/label_placa"/>
             </android.support.design.widget.TextInputLayout>
 
 
@@ -81,7 +81,7 @@
                     android:layout_height="fill_parent"
                     android:textSize="20sp"
                     android:layout_marginRight="10dp"
-                    android:text="Cor"
+                    android:text="@string/label_cor"
                     android:gravity="center"
                     />
 
@@ -89,7 +89,7 @@
                     android:id="@+id/btn_cor"
                     android:layout_width="fill_parent"
                     android:layout_height="40dp"
-                    android:text="Salvar"/>
+                    />
             </LinearLayout>
 
 
@@ -105,14 +105,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
-                    android:text="Limpar"/>
+                    android:text="@string/label_limpar"/>
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/btn_salvar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
-                    android:text="Salvar"/>
+                    android:text="@string/label_salvar"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -1,5 +1,6 @@
 package br.com.rbarrelo.tabapp.fragments.form;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +17,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import br.com.rbarrelo.tabapp.R;
+import br.com.rbarrelo.tabapp.eventbus.LocalEvent;
+import br.com.rbarrelo.tabapp.eventbus.UpdateEvent;
 import br.com.rbarrelo.tabapp.model.Veiculo;
 import br.com.rbarrelo.tabapp.model.VeiculoHelper;
 import br.com.rbarrelo.tabapp.util.Commom;
+import de.greenrobot.event.EventBus;
 
 public class FormFragment extends Fragment {
 
@@ -26,6 +31,7 @@ public class FormFragment extends Fragment {
     private TextView tvMarca;
     private TextView tvModelo;
     private TextView tvPlaca;
+    private TextView tvLabel;
     private Button btnSalvar;
     private Button btnLimpar;
     private TabLayout tabLayout;
@@ -52,6 +58,19 @@ public class FormFragment extends Fragment {
         helper.closeRealm();
     }
 
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDetach() {
+        EventBus.getDefault().unregister(this);
+        super.onDetach();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -70,6 +89,7 @@ public class FormFragment extends Fragment {
         tvMarca = (TextView) view.findViewById(R.id.text_marca);
         tvModelo = (TextView) view.findViewById(R.id.text_modelo);
         tvPlaca = (TextView) view.findViewById(R.id.text_placa);
+        tvLabel = (TextView) view.findViewById(R.id.label_cadastro);
 
         btnSalvar = (Button) view.findViewById(R.id.btn_salvar);
         btnSalvar.setOnClickListener(new View.OnClickListener() {
@@ -116,6 +136,7 @@ public class FormFragment extends Fragment {
 
     private void limpaTela(){
         this.usaCorSelecionada(getResources().getColor(R.color.color_black));
+        this.tvLabel.setText(getString(R.string.label_cadastro));
         this.tvMarca.setText("");
         this.tvModelo.setText("");
         this.tvPlaca.setText("");
@@ -160,12 +181,23 @@ public class FormFragment extends Fragment {
 
     public void insereOuAtualiza(Veiculo veiculo, String operacao){
         helper.insereOuAtualiza(veiculo)
-              .notificaAlteracao();
+              .notificaAlteracaoNaLista();
 
         limpaTela();
         TabLayout.Tab tab = tabLayout.getTabAt(Commom.TAB_LISTA_LOCAL);
         tab.select();
         Snackbar.make(getView(), veiculo.getPlaca() + " " + operacao + "!", Snackbar.LENGTH_SHORT).show();
+    }
+
+    public void onEventMainThread(final UpdateEvent event) {
+        Log.i(Commom.TAG, "[FormFragment] onEventMainThread");
+
+        Veiculo veiculo = event.getVeiculo();
+        this.tvLabel.setText(getString(R.string.label_update));
+        this.tvMarca.setText(veiculo.getMarca());
+        this.tvModelo.setText(veiculo.getModelo());
+        this.tvPlaca.setText(veiculo.getPlaca());
+        this.usaCorSelecionada(veiculo.getCor());
     }
 
     public boolean isValid() {

@@ -1,5 +1,6 @@
 package br.com.rbarrelo.tabapp.fragments.local;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,8 +18,11 @@ import br.com.rbarrelo.tabapp.model.Veiculo;
 public class LocalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<Veiculo> veiculoList;
+    private final Activity activity;
 
-    public LocalAdapter() { }
+    public LocalAdapter(Activity activity) {
+        this.activity = activity;
+    }
 
     public void setVeiculoList(List<Veiculo> veiculoList) {
         this.veiculoList = veiculoList;
@@ -28,7 +32,7 @@ public class LocalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         View view = LayoutInflater.from(context).inflate(R.layout.local_item, parent, false);
-        return LocalItemViewHolder.newInstance(view);
+        return LocalItemViewHolder.newInstance(view, activity);
     }
 
     @Override

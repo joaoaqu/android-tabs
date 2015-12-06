@@ -30,16 +30,19 @@ public class VeiculoHelper {
     }
 
     public boolean existe(String placa){
-        RealmResults<Veiculo> results = get(placa);
-        return  (results != null && results.size() > 0);
+        Veiculo veiculo = get(placa);
+        return  (veiculo != null);
     }
 
-    public RealmResults<Veiculo> get(String placa){
+    public Veiculo get(String placa){
         RealmResults<Veiculo> results = this.realm.where(Veiculo.class)
                 .equalTo("placa", placa)
                 .findAll();
 
-        return results;
+        if (results != null && results.size() > 0){
+            return results.first();
+        }
+        return null;
     }
 
     public boolean remove(String placa){
@@ -59,7 +62,7 @@ public class VeiculoHelper {
         return false;
     }
 
-    public VeiculoHelper notificaAlteracao(){
+    public VeiculoHelper notificaAlteracaoNaLista(){
         RealmResults<Veiculo> dados = this.realm.where(Veiculo.class).findAll();
         dados.sort("placa");
 

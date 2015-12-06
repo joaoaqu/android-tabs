@@ -19,10 +19,9 @@
         <ImageView
             android:id="@+id/img_news"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:src="@mipmap/ic_launcher"
-            android:layout_gravity="center_vertical"
-            />
+            android:scaleType="centerCrop" />
 
 
         <LinearLayout
@@ -35,10 +34,7 @@
                 android:id="@+id/item_title"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="8dp"
                 android:paddingTop="8dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="0dp"
                 android:text="Titulo"
                 style="@style/Base.TextAppearance.AppCompat.Body2"/>
 
@@ -46,11 +42,8 @@
                 android:id="@+id/item_detalhe"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="8dp"
-                android:paddingTop="0dp"
-                android:paddingRight="8dp"
                 android:paddingBottom="8dp"
-                android:text="Data"
+                android:text="dasda asdasd asd asd asd asd as da sd as da sd as da sd asd asd as da sd asd a sd asd "
                 style="@style/Base.TextAppearance.AppCompat.Small"
                 />
         </LinearLayout>

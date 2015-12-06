@@ -1,8 +1,16 @@
 <resources>
-    <string name="app_name">TabApp</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="app_name">Veículos</string>
     <string name="carregando">Carregando...</string>
     <string name="falha_carregar">Ocorreu um erro ao carregar dados.</string>
+
+    <string name="label_cadastro">Cadastro de Veículo</string>
+    <string name="label_update">Atualização de Veículo</string>
+    <string name="label_marca">Marca</string>
+    <string name="label_modelo">Modelo</string>
+    <string name="label_cor">Cor</string>
+    <string name="label_salvar">Salvar</string>
+    <string name="label_limpar">Limpar</string>
+    <string name="label_placa">Placa</string>
 
     <string name="tab_news">Notícias</string>
     <string name="tab_lista_local">Lista</string>
@@ -17,6 +25,4 @@
     <string name="exclui_veiculo">Deseja excluir o veículo?</string>
     <string name="dialog_veiculo_sim">Sim</string>
     <string name="dialog_veiculo_nao">Não</string>
-
-
 </resources>

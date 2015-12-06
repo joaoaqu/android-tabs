@@ -42,13 +42,13 @@ public class LocalLista extends ListaFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        localAdapter = new LocalAdapter();
+        localAdapter = new LocalAdapter(getActivity());
         recyclerView.setAdapter(localAdapter);
     }
 
     @Override
     protected void setupRecyclerView() {
-        helper.notificaAlteracao();
+        helper.notificaAlteracaoNaLista();
     }
 
     public void onEventMainThread(final LocalEvent event) {
