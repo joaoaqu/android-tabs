@@ -5,6 +5,36 @@ Construir um app android no Android Studio com os recursos listados abaixo.
 * A aplicação deve iniciar com uma animação com logotipos (simulando patrocinadores, ex.: cartolafc);
 * Na home, construir uma aplicação com Tabs. Deve conter ao menos 3 abas, e dentro de cada aba diferentes tipos de conteúdos e elementos.
 
+
+![image](prints/01-splash.png)
+Tela de splash com logo (icone default)
+
+![image](prints/aba1/02-aba1.png)
+Aba 1 com notícias carregadas da web (feed rss) 
+
+![image](prints/aba2/03-aba2-vazia.png)
+Aba 2 com a lista vazia, mostrando um placeholder default
+
+![image](prints/aba2/07-aba2-preenchida.png)
+Aba 2 com lista carregada da base local
+
+![image](prints/aba2/09-aba2-delete.png)
+Dialog de confirmação de delete dos itens locais (com longClick)
+
+![image](prints/aba3/06-aba3-cadastro.png)
+Aba 3 com novo cadastro
+
+![image](prints/aba3/05-cor.png)
+Dialog para seleção de cor
+
+![image](prints/aba3/08-aba3-update.png)
+Aba 3 com item para ser atualizado (alteração do título)
+
+![image](prints/aba3/10-aba3-update-dialog.png)
+Dialog de confirmação de update
+
+
+
 ### Bibliotecas utilizadas
 ##### Nativas
 * [AppCompat] - com.android.support:appcompat-v7:23.0.1
